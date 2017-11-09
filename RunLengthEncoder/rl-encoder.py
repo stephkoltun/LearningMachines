@@ -1,3 +1,11 @@
+# Learning Machines, Assignment 1
+# Fall 2017, ITP NYU
+# Stephanie Koltun
+
+# Instructions
+# cmd lin: python rl-encoder.py [argument for num of diff characters to use]
+
+
 import sys
 import random
 
@@ -61,7 +69,7 @@ def decode (code):
 	return string
 
 
-
+# run it!
 inputstr = generateString(int(sys.argv[1])) # use 1st argument from command to determine length
 print "original string: "
 print inputstr 
