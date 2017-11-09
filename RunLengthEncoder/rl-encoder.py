@@ -1,3 +1,6 @@
+import sys
+import random
+
 # encode a string
 def encode (string):
 	code=[]
@@ -32,22 +35,39 @@ def encode (string):
 
 	return code
 
-# generate random string
-def generateString ():
+# generate random string with the argument being number of potentially different characters
+def generateString (num):
 	characters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','q','r','s','t','u','v','w','x','y','z']
 	genstr = ''
 
-	import random
-
-	for i in range(12):
+	for i in range(num):
+		# pick a random character from the character list
 		thischar = random.choice(characters)
+		# pick a random number between 1 and 6
 		amount = random.randint(1,6)
-		for num in range(amount):
-			genstr += thischar
+		genstr += thischar*amount
+
 	return genstr
 
+# decode
+def decode (code):
+	string = ''
 
-inputstr = generateString()
-print "original string: " + inputstr 
+	# use each pair in the code
+	for count, letter in code:
+		# add the number of letter instances to the string
+		string += letter * count
+
+	return string
+
+
+
+inputstr = generateString(int(sys.argv[1])) # use 1st argument from command to determine length
+print "original string: "
+print inputstr 
 print "encoded: "
-print encode(inputstr)
+encoded = encode(inputstr)
+print encoded
+print "decoded: "
+decoded = decode(encoded)
+print decoded
