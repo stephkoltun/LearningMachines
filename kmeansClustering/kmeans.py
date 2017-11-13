@@ -9,6 +9,7 @@
 import sys
 import random
 import matplotlib.pyplot as plt
+import math
 
 xextent = int(sys.argv[1])		# user input to define X extent
 yextent = int(sys.argv[2])		# user input to define Y extent
@@ -16,9 +17,10 @@ k = int(sys.argv[3])	# number of clusters
 numpoints = int(sys.argv[4])	# number of points to split into clusters
 
 # these are the points
-pointslist = [[],[]]
+pointslist = [[],[],[]]
 xcoords = pointslist[0]
 ycoords = pointslist[1]
+ptclust = pointslist[2]
 
 
 # these are the cluster centers
@@ -26,24 +28,34 @@ ycoords = pointslist[1]
 centroids = []
 
 # these are the points for each cluster
-clusters = []	
+clusters = []
+colors = ["r","g","b"]	
 
 
 # generate list of points and randomly place centers
 def initializePointsAndClusters():
+	iterate = 0
+
+	for cluster in range(k):
+		# get a random coord for each cluster's center
+		center = generateCoord(xextent, yextent)
+		center.append(colors[iterate])
+		centroids.append(center)
+		iterate += 1
+
+		# append empty list for each cluster
+		clusters.append([[],[]])
+
 	for point in range(numpoints):
 		thispoint = generateCoord(xextent, yextent)
 		# add this point to the list
 		xcoords.append(thispoint[0])
 		ycoords.append(thispoint[1])
 
-	for cluster in range(k):
-		# get a random coord for each cluster's center
-		center = generateCoord(xextent, yextent)
-		centroids.append(center)
+		# assign random centroid
+		randcenter = random.randint(0,(k-1))
+		ptclust.append(randcenter)
 
-		# append empty list for each cluster
-		clusters.append([[],[]])	
 	
 # generate random coord
 def generateCoord(xext, yext):
@@ -56,38 +68,64 @@ def generateCoord(xext, yext):
 
 	return coord
 
-def assignFirstCluster():
-	# for each point
-	for point in pointslist:
+def assign():
+	changedAnyPoint = False
+
+	for p in range(numpoints):
+		changedPoint = False
+		point = [xcoords[p],ycoords[p]]
 		# initialize shortest distance as the furthest place
-		shortestDist = sqrt((yextent)**2 + (yextent)**2)
-		nearestClust = 0
-		# find the distance to every cluster-center
-		for center in prevcenters:
+		curClust = int(ptclust[p])
+		nearestCenter = centroids[curClust]
+		curDist = calcDist(point,nearestCenter)
+		
+		# find the distance to every centroid
+		for center in centroids:
 			dist = calcDist(point,center)
-			if dist < shortestDist:
+			#print "d: " + str(dist) + " prev: " + str(curDist)
+			if dist < curDist:
 				# reassign 
-				shortestDist = dist
-				point[2] = prevcenters.index(center)	# add cluster val to point
-				nearestClust = prevcenters.index(center)
-				prevclusters[prevcenters.index(center)].append(point)
+				curDist = dist
+				ptclust[p] = centroids.index(center) # change current clust num
+				changedPoint = True
+				
+				
+		if changedPoint == True:
+			changedAnyPoint = True
+			print "reassigned point"
+		else:
+			print "point " + str(p) + " okay"
+
+	# should this keep going?
+	if changedAnyPoint == True:
+		# move centroid
+		print "keep checking"
+		averageCentroid()	# adjust centroid
+		assign()			# run function again
+	else:
+		print "clusters are done!"
+		return True
+
+def averageCentroid():
+
 
 def plotIt():
 	# plot the individual points
-	plt.scatter(xcoords, ycoords, c="g")
+	for p in range(numpoints):
+		plt.scatter(xcoords[p], ycoords[p], s=15, c=colors[ptclust[p]])
 	# plot the centeroids
 	for center in centroids:
-
+		plt.scatter(center[0], center[1], s= 50, c=center[2])
 	plt.show()
 
-# def calcDist(point,center):
-# 	x1 = point[0]
-# 	y1 = point[1]
-# 	x2 = center[0]
-# 	y2 = center[1]
+def calcDist(point,center):
+	x1 = point[0]
+	y1 = point[1]
+	x2 = center[0]
+	y2 = center[1]
 
-# 	dist = sqrt((x2-x1)**2 + (y2-y1)**2)
-# 	return dist
+	dist = math.sqrt((x2-x1)**2 + (y2-y1)**2)
+	return dist
 
 
 # run it!
@@ -95,7 +133,9 @@ initializePointsAndClusters()
 print "points: "
 print pointslist
 print "centers: "
-print prevcenters
+print centroids
+done = assign()
+print done
 plotIt()
 
 
