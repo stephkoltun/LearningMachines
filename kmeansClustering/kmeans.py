@@ -22,8 +22,6 @@ numpoints = int(sys.argv[4])	# number of points to split into clusters
 pointslist = [[],[],[]]
 xcoords = pointslist[0]
 ycoords = pointslist[1]
-# this version tracks what cluster each individual is part of
-# should make another version that 
 ptclust = pointslist[2]
 
 # these are the cluster centers
@@ -123,6 +121,8 @@ def averageCentroid():
 		centroids[cluster][1] = newy
 
 def groupPoints():
+	# should make another version that groups the points each time
+	# and uses subplots to show each assignment iteration
 	for cluster in range(k):
 		# find matching points
 		for p in range(numpoints):
