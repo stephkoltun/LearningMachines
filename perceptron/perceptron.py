@@ -1,10 +1,18 @@
-# Learning Machines, Assignment 1
+# Learning Machines, Assignment 3
+# perceptron for AND and OR tables
 # Fall 2017, ITP NYU
 # Stephanie Koltun
 
 import sys
 import random
 import numpy as np
+
+# cmd line: python perceptron [TABLE] (argument takes either AND or OR)
+# it only works for my OR table
+# for the AND table, I get recursion depth errors
+#...File "/Library/Python/2.7/site-packages/numpy-override/numpy/core/numeric.py", line 2507, in seterr
+#    old = geterr()
+#RuntimeError: maximum recursion depth exceeded 
 
 orTable = np.array([
 	([1,1],1),	# true true = true
