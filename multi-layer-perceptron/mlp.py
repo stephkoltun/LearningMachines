@@ -87,7 +87,7 @@ class Mlp:
 	def train(self,input,target,learn_rate,epochs,batch_size = 10,report_freq = 10):
 		num_examples = target.shape[ 1 ]
 		# Setup visualizer:
-		vis = MlpVisualizer( np.amin( input ), np.amax( input ), np.amin( target ), np.amax( target ), report_freq )
+		# vis = MlpVisualizer( np.amin( input ), np.amax( input ), np.amin( target ), np.amax( target ), report_freq )
 		# Iterate over each training epoch:
 		for epoch in range( epochs ):
 			error = 0.0
@@ -104,9 +104,9 @@ class Mlp:
 				# Print report:
 				print "Epoch: %d\nError: %f\n" % ( epoch, error )
 				# Update visualizer:
-				vis.update( epoch, error, input, target, self.predict( input ) )
+				# vis.update( epoch, error, input, target, self.predict( input ) )
 		# Save final training visualization to image:
-		vis.saveImage( 'mlp_training_process.png' )
+		# vis.saveImage( 'mlp_training_process.png' )
 
 # MLP Visualization Class:
 

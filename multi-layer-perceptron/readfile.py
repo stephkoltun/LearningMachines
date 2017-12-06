@@ -2,10 +2,9 @@ import numpy as np
 
 def constructData(filename, num_of_inputs):
 
-	#dat = np.loadtxt( filename )
-
 	data_file = open(filename, "r")
 	entries = data_file.read().split("\n")
+	data_file.close()
 
 	dataArray = createEntriesArray(entries, num_of_inputs)
 	
@@ -25,11 +24,11 @@ def createEntriesArray(entries, input_num):
 				inp_list.append(float(inp))
 			else:
 				if (inp == 'Iris-setosa'):
-					outputlist.append([1,-1,-1])
+					outputlist.append([1,0,0])
 				if (inp == 'Iris-versicolor'):
-					outputlist.append([-1,1,-1])
+					outputlist.append([0,1,0])
 				if (inp == 'Iris-virginica'):
-					outputlist.append([-1,-1,1])
+					outputlist.append([0,0,1])
 
 		inputslist.append(inp_list)	
 
