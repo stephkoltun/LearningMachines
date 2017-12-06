@@ -18,6 +18,8 @@ mlp = Mlp( [ sample_size, 15, output_size ], "sig" )
 			
 # Construct dataset:
 dataset = constructData("iris.txt", 4)
+
+# TO DO split into training and testing (80%, 20%)
 training_inputs = dataset[0]
 training_outputs = dataset[1]
 
@@ -28,6 +30,7 @@ print(training_outputs)
 mlp.train( training_inputs, training_outputs, learn_rate, epoch_cnt, batch_size, report_freq )
 
 # Make predictions:
+# TO DO: Replace with testing inputs (not trainig)
 training_guesses = mlp.predict( training_inputs )
 
 # Print correct and predicted outputs:
