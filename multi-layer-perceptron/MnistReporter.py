@@ -32,7 +32,7 @@ class MnistSupervisedReporter:
 		self.fig.clf()
 		# Add subplots:
 		self.error_plot = self.fig.add_subplot( 2, 1, 1 )
-		#self.histo_plot = self.fig.add_subplot( 2, 1, 2 )
+		self.histo_plot = self.fig.add_subplot( 2, 1, 2 )
 		# Setup error rate subplot:
 		self.error_plot.set_xlabel( 'Epoch' )
 		self.error_plot.set_ylabel( 'Error' )
@@ -71,21 +71,21 @@ class MnistSupervisedReporter:
 		self.error_valid_line.set_data( self.error_epoch, self.error_valid )
 		self.error_plot.set_xlim( xmin, xmax )
 		# # Prepare histogram:
-		# labels_max	  = np.argmax( validation_labels, axis = 1 )
-		# guesses_max	  = np.argmax( validation_guesses, axis = 1 )
-		# guess_matches = np.equal( labels_max, guesses_max )
-		# guess_histo	  = np.histogram( labels_max[ np.where( guess_matches == True ) ], np.arange( 11 ) )[ 0 ].astype( np.float )
-		# guess_histo	 /= np.histogram( labels_max, np.arange( 11 ) )[ 0 ].astype( np.float )
-		# histo_rangex  = np.arange( 10 )
-		# histo_rangey  = np.arange( 11 ) / 10.0
-		# # Update histogram:
-		# self.histo_plot.cla()
-		# self.histo_plot.set_title('Digit Validation Accuracy %')		
-		# self.histo_plot.set_xticks( histo_rangex + 0.5 )
-		# self.histo_plot.set_xticklabels( [ str(i) for i in histo_rangex ] )
-		# self.histo_plot.set_yticks( histo_rangey )
-		# self.histo_plot.set_yticklabels( [ str(i*100) for i in histo_rangey ] )
-		# self.histo_plot.bar( histo_rangex, height=guess_histo, width=1 )
+		labels_max	  = np.argmax( validation_labels, axis = 1 )
+		guesses_max	  = np.argmax( validation_guesses, axis = 1 )
+		guess_matches = np.equal( labels_max, guesses_max )
+		guess_histo	  = np.histogram( labels_max[ np.where( guess_matches == True ) ], np.arange( 11 ) )[ 0 ].astype( np.float )
+		guess_histo	 /= np.histogram( labels_max, np.arange( 11 ) )[ 0 ].astype( np.float )
+		histo_rangex  = np.arange( 10 )
+		histo_rangey  = np.arange( 11 ) / 10.0
+		# Update histogram:
+		self.histo_plot.cla()
+		self.histo_plot.set_title('Digit Validation Accuracy %')		
+		self.histo_plot.set_xticks( histo_rangex + 0.5 )
+		self.histo_plot.set_xticklabels( [ str(i) for i in histo_rangex ] )
+		self.histo_plot.set_yticks( histo_rangey )
+		self.histo_plot.set_yticklabels( [ str(i*100) for i in histo_rangey ] )
+		self.histo_plot.bar( histo_rangex, height=guess_histo, width=1 )
 		# Draw plot:
 		if self.is_jupyter:
 			self.fig.canvas.draw()
@@ -111,9 +111,9 @@ class MnistUnsupervisedReporter:
 		# Add outer grid:
 		self.outer_grid = gridspec.GridSpec( 2, 1, wspace=0.2, hspace=0.2 )
 		# Add subplots:
-		#self.error_plot = self.fig.add_subplot( 1, 1, 1 )
+		self.error_plot = self.fig.add_subplot( 1, 1, 1 )
 		self.error_plot = plt.subplot( self.outer_grid[0] )
-		#self.mnist_plot = gridspec.GridSpecFromSubplotSpec( 2, 10, subplot_spec=self.outer_grid[1], hspace=0.05, wspace=0.05 )	 
+		self.mnist_plot = gridspec.GridSpecFromSubplotSpec( 2, 10, subplot_spec=self.outer_grid[1], hspace=0.05, wspace=0.05 )	 
 		# Setup error rate subplot:
 		self.error_plot.set_xlabel( 'Epoch' )
 		self.error_plot.set_ylabel( 'Error' )
@@ -125,14 +125,14 @@ class MnistUnsupervisedReporter:
 		# Add error legend:
 		self.error_legend = self.error_plot.legend(loc='upper left', shadow=True)
 		# Initialize MNIST images:
-		# self.mnist_images = []
-		# for i in range( 20 ):
-		# 	arr = np.zeros( (28, 28) )	
-		# 	ax = self.fig.add_subplot( self.mnist_plot[i] )
-		# 	self.mnist_images.append( ax.imshow( arr, cmap='gray', vmin=0, vmax=1, aspect='equal', animated=True ) )
-		# 	ax.set_xticks([])
-		# 	ax.set_yticks([])
-		# 	self.fig.add_subplot(ax)
+		self.mnist_images = []
+		for i in range( 20 ):
+			arr = np.zeros( (28, 28) )	
+			ax = self.fig.add_subplot( self.mnist_plot[i] )
+			self.mnist_images.append( ax.imshow( arr, cmap='gray', vmin=0, vmax=1, aspect='equal', animated=True ) )
+			ax.set_xticks([])
+			ax.set_yticks([])
+			self.fig.add_subplot(ax)
 		# Show plot:
 		if not self.is_jupyter:
 			plt.show()

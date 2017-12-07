@@ -17,7 +17,7 @@ learn_rate  = 0.05
 mlp = Mlp( "iris", [ sample_size, 15, output_size ], "tanh" )
 			
 # Construct dataset, returns training, validation and test sets:
-datasets = constructData("iris.txt", 4)
+datasets = constructData("data/iris.txt", 4)
 training = datasets[0]
 validation = datasets[1]
 test = datasets[1]
