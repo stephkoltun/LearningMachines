@@ -18,23 +18,29 @@ learn_rate  = 0.05
 # takes layer_sizes and activation_fn_name as arguments
 mlp = Mlp( "iris", [ sample_size, 15, output_size ], "sig" )
 			
-# Construct dataset:
-dataset = constructData("iris.txt", 4)
+# Construct dataset, returns both training and validation sets:
+datasets = constructData("iris.txt", 4)
 
-# TO DO split into training and testing (80%, 20%)
-training_inputs = dataset[0]
-training_outputs = dataset[1]
-#training_guesses 
+training = datasets[0]
+validation = datasets[1]
 
-print(training_inputs)
-print(training_outputs)
+print(training)
+print(validation)
+
+
+training_inputs = training[0]
+training_outputs = training[1]
+
+validation_inputs = validation[0]
+validation_outputs = validation[1]
+
 
 # Train MLP:
-# TO DO: Replace with testing inputs (not training twice)
-mlp.train( training_inputs, training_outputs, training_inputs, training_outputs, learn_rate, epoch_cnt, batch_size, report_freq,  report_buff)
+# arguments are: training_samples, training_labels, validation_samples, validation_labels, learn_rate, epochs, batch_size, report_freq, report_buff
+mlp.train( training_inputs, training_outputs, validation_inputs, validation_outputs, learn_rate, epoch_cnt, batch_size, report_freq,  report_buff)
 
 
 # Print correct and predicted outputs:
-print ( "Outputs: %s\nGuesses: %s\n" ) % ( training_outputs, training_guesses )
+# print ( "Outputs: %s\nGuesses: %s\n" ) % ( training_outputs, training_guesses )
 
 

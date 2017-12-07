@@ -1,4 +1,5 @@
 import numpy as np
+from random import shuffle
 
 def constructData(filename, num_of_inputs):
 
@@ -6,9 +7,21 @@ def constructData(filename, num_of_inputs):
 	entries = data_file.read().split("\n")
 	data_file.close()
 
-	dataArray = createEntriesArray(entries, num_of_inputs)
+	# randomize the examples
+	shuffle(entries)
+	print(entries)
+
+	# split into training and validatition sets
+	trainingCount = (len(entries)/5)*4
+	print(trainingCount)
+	trainingExamples = entries[:trainingCount]
+	validationExamples = entries[trainingCount:]
+
+	# create input and output arrays for each set
+ 	trainingArrays = createEntriesArray(trainingExamples, num_of_inputs)
+ 	validateArrays = createEntriesArray(validationExamples, num_of_inputs)
 	
-	return dataArray
+ 	return trainingArrays, validateArrays
 
 def createEntriesArray(entries, input_num):
 	inputslist = []
