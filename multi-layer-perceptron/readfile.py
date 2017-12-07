@@ -2,6 +2,7 @@ import numpy as np
 from random import shuffle
 
 def constructData(filename, num_of_inputs):
+	#num_of_inputs = input dimensions
 
 	data_file = open(filename, "r")
 	entries = data_file.read().split("\n")
@@ -9,21 +10,24 @@ def constructData(filename, num_of_inputs):
 
 	# randomize the examples
 	shuffle(entries)
-	print(entries)
 
-	# split into training and validatition sets
+	# split into training (80%), validation (15%), and text (5%) sets
 	trainingCount = (len(entries)/5)*4
+	validCountEnd = (len(entries)/20)*3 + trainingCount
 	print(trainingCount)
 	trainingExamples = entries[:trainingCount]
-	validationExamples = entries[trainingCount:]
+	validationExamples = entries[trainingCount:validCountEnd]
+	textExamples = entries[validCountEnd:]
 
 	# create input and output arrays for each set
  	trainingArrays = createEntriesArray(trainingExamples, num_of_inputs)
  	validateArrays = createEntriesArray(validationExamples, num_of_inputs)
+ 	testArrays = createEntriesArray(textExamples, num_of_inputs)
 	
- 	return trainingArrays, validateArrays
+ 	return trainingArrays, validateArrays, testArrays
 
 def createEntriesArray(entries, input_num):
+	# create lists for the inputs and outputs
 	inputslist = []
 	outputlist = []
 
@@ -36,12 +40,13 @@ def createEntriesArray(entries, input_num):
 			if index < input_num:
 				inp_list.append(float(inp))
 			else:
+				#use hot-encoding for the categories
 				if (inp == 'Iris-setosa'):
-					outputlist.append([1,0,0])
+					outputlist.append([1,-1,-1])
 				if (inp == 'Iris-versicolor'):
-					outputlist.append([0,1,0])
+					outputlist.append([-1,1,-1])
 				if (inp == 'Iris-virginica'):
-					outputlist.append([0,0,1])
+					outputlist.append([-1,-1,1])
 
 		inputslist.append(inp_list)	
 
