@@ -24,7 +24,7 @@ dataset = constructData("iris.txt", 4)
 # TO DO split into training and testing (80%, 20%)
 training_inputs = dataset[0]
 training_outputs = dataset[1]
-training_guesses 
+#training_guesses 
 
 print(training_inputs)
 print(training_outputs)
