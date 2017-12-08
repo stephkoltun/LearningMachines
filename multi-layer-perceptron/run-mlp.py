@@ -3,8 +3,8 @@ from readfile import *
 
 
 # Set hyperparameters:
-sample_size = 4		# input dimensions
-output_size = 3		# output dimensions
+sample_size = 9		# input dimensions
+output_size = 7		# output dimensions
 
 batch_size  = 10
 epoch_cnt   = 3000
@@ -14,16 +14,17 @@ learn_rate  = 0.05
 
 # Construct MLP:
 # takes layer_sizes and activation_fn_name as arguments
-mlp = Mlp( "iris", [ sample_size, 15, output_size ], "tanh" )
+mlp = Mlp( "forest", [ sample_size, 15, output_size ], "tanh" )
 			
 # Construct dataset, returns training, validation and test sets:
-datasets = constructData("data/iris.txt", 4)
+datasets = constructData("data/forestcovertype.txt", 4)
 training = datasets[0]
 validation = datasets[1]
 test = datasets[1]
 
 # Split them into their inputs and outputs
 training_inputs = training[0]
+print(training_inputs)
 training_outputs = training[1]
 validation_inputs = validation[0]
 validation_outputs = validation[1]
