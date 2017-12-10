@@ -13,17 +13,20 @@ def constructData(filename, num_of_inputs):
 	entries = data_file.read().split("\n")
 	data_file.close()
 
-	print("examples: " + str(len(entries)))
+	print("total examples: " + str(len(entries)))
 
 	# randomize the examples
 	shuffle(entries)
 
 	# split into training (80%), validation (15%), and text (5%) sets
-	trainingCount = len(entries)/10*8
-	validCountEnd = trainingCount + len(entries)/5*3
+	trainingCount = 5000
+	validCountEnd = trainingCount + 2000
+	testCountEnd = validCountEnd + 100
 	trainingExamples = entries[:trainingCount]
 	validationExamples = entries[trainingCount:validCountEnd]
-	textExamples = entries[validCountEnd:]
+	textExamples = entries[validCountEnd:testCountEnd]
+
+	print("training count: " + str(trainingCount) + ", validation count: 2000, test count: 100")
 
 	# create input and output arrays for each set
  	trainingArrays = createEntriesArray(trainingExamples, num_of_inputs)

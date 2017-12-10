@@ -6,11 +6,11 @@ from readfile import *
 sample_size = 9		# input dimensions
 output_size = 7		# output dimensions
 
-batch_size  = 10
-epoch_cnt   = 3000
+batch_size  = 150
+epoch_cnt   = 10000
 report_freq = 10
 report_buff = 100
-learn_rate  = 0.05
+learn_rate  = 0.1
 
 # Construct MLP:
 # takes layer_sizes and activation_fn_name as arguments
