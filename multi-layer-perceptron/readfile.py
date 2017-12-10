@@ -19,13 +19,11 @@ def constructData(filename, num_of_inputs):
 	shuffle(entries)
 
 	# split into training (80%), validation (15%), and text (5%) sets
-	trainingCount = 2000
-	validCountEnd = trainingCount + 350
-	testCountEnd = validCountEnd + 100
-	print(trainingCount, validCountEnd, testCountEnd)
+	trainingCount = len(entries)/10*8
+	validCountEnd = trainingCount + len(entries)/5*3
 	trainingExamples = entries[:trainingCount]
 	validationExamples = entries[trainingCount:validCountEnd]
-	textExamples = entries[validCountEnd:testCountEnd]
+	textExamples = entries[validCountEnd:]
 
 	# create input and output arrays for each set
  	trainingArrays = createEntriesArray(trainingExamples, num_of_inputs)
