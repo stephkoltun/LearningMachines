@@ -6,7 +6,7 @@ from random import shuffle
 # http://archive.ics.uci.edu/ml/machine-learning-databases/covtype/covtype.info
 
 
-def constructData(filename, num_of_inputs):
+def constructData(filename):
 	#num_of_inputs = input dimensions
 
 	data_file = open(filename, "r")
@@ -19,27 +19,27 @@ def constructData(filename, num_of_inputs):
 	shuffle(entries)
 
 	# split into training (80%), validation (15%), and text (5%) sets
-	trainingCount = 5000
-	validCountEnd = trainingCount + 2000
+	trainingCount = 9000
+	validCountEnd = trainingCount + 3000
 	testCountEnd = validCountEnd + 100
 	trainingExamples = entries[:trainingCount]
 	validationExamples = entries[trainingCount:validCountEnd]
 	textExamples = entries[validCountEnd:testCountEnd]
 
-	print("training count: " + str(trainingCount) + ", validation count: 2000, test count: 100")
+	print("training count: " + str(trainingCount) + ", validation count: 3000, test count: 100")
 
 	# create input and output arrays for each set
- 	trainingArrays = createEntriesArray(trainingExamples, num_of_inputs)
+ 	trainingArrays = createEntriesArray(trainingExamples)
  	print("completed training construction")
- 	validateArrays = createEntriesArray(validationExamples, num_of_inputs)
+ 	validateArrays = createEntriesArray(validationExamples)
  	print("completed validation construction")
- 	testArrays = createEntriesArray(textExamples, num_of_inputs)
+ 	testArrays = createEntriesArray(textExamples)
 
  	print("completed data construction")
 	
  	return trainingArrays, validateArrays, testArrays
 
-def createEntriesArray(entries, input_num):
+def createEntriesArray(entries):
 	# create lists for the inputs and outputs
 	inputslist = []
 	outputlist = []
@@ -93,6 +93,18 @@ def createEntriesArray(entries, input_num):
 				mappedVal = mapVal(thisVal,0.0,255.0,-1.0,1.0)
 				inp_list.append(mappedVal)
 
+			#wilderness area , use one-hot encoding
+			# NEED TO SOLVE THIS
+			# if index >= 9 and index <= 12:
+			# 	if index == 9 and int(inp) == 1:
+			# 		inp_list.append([1,-1,-1,-1])
+			# 	if index == 10 and int(inp) == 1:
+			# 		inp_list.append([-1,1,-1,-1])
+			# 	if index == 11 and int(inp) == 1:
+			# 		inp_list.append([-1,-1,1,-1])
+			# 	if index == 12 and int(inp) == 1:
+			# 		inp_list.append([-1,-1,-1,1])
+
 			#temporarily ignoring the hot-encoded binary variables
 			if index == 54:
 				#use hot-encoding for the categories
@@ -118,6 +130,7 @@ def createEntriesArray(entries, input_num):
 	return inputsarray, outputsarray
 
 
+# map values
 def mapVal(value, istart, istop, ostart, ostop):
     return ostart + ( ostop - ostart ) * ( ( value - istart ) / ( istop - istart ) );
 

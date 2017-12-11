@@ -3,21 +3,22 @@ from readfile import *
 
 
 # Set hyperparameters:
-sample_size = 9		# input dimensions
+sample_size = 9		# input dimensions - how does this number change if using hot-encoding for 1 input
 output_size = 7		# output dimensions
 
-batch_size  = 150
-epoch_cnt   = 10000
+batch_size  = 200
+epoch_cnt   = 20000
 report_freq = 10
 report_buff = 100
 learn_rate  = 0.1
+layers = 8
 
 # Construct MLP:
 # takes layer_sizes and activation_fn_name as arguments
-mlp = Mlp( "forest", [ sample_size, 15, output_size ], "tanh" )
+mlp = Mlp( "forest", [ sample_size, layers, output_size ], "tanh" )
 			
 # Construct dataset, returns training, validation and test sets:
-datasets = constructData("data/forestcovertype.txt", 4)
+datasets = constructData("data/forestcovertype.txt")
 training = datasets[0]
 validation = datasets[1]
 test = datasets[1]
