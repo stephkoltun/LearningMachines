@@ -95,15 +95,12 @@ def createEntriesArray(entries):
 
 			#wilderness area , use one-hot encoding
 			# NEED TO SOLVE THIS
-			# if index >= 9 and index <= 12:
-			# 	if index == 9 and int(inp) == 1:
-			# 		inp_list.append([1,-1,-1,-1])
-			# 	if index == 10 and int(inp) == 1:
-			# 		inp_list.append([-1,1,-1,-1])
-			# 	if index == 11 and int(inp) == 1:
-			# 		inp_list.append([-1,-1,1,-1])
-			# 	if index == 12 and int(inp) == 1:
-			# 		inp_list.append([-1,-1,-1,1])
+			if index >= 9 and index <= 12:
+		 		if int(inp) == 1:
+		 			inp_list.append(1)
+		 		else:
+		 			inp_list.append(-1)
+
 
 			#temporarily ignoring the hot-encoded binary variables
 			if index == 54:

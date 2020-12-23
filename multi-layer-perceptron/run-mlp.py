@@ -3,7 +3,7 @@ from readfile import *
 
 
 # Set hyperparameters:
-sample_size = 9		# input dimensions - how does this number change if using hot-encoding for 1 input
+sample_size = 13		# input dimensions - how does this number change if using hot-encoding for 1 input
 output_size = 7		# output dimensions
 
 batch_size  = 200
@@ -25,7 +25,7 @@ test = datasets[1]
 
 # Split them into their inputs and outputs
 training_inputs = training[0]
-print(training_inputs)
+print(training_inputs[1])
 training_outputs = training[1]
 validation_inputs = validation[0]
 validation_outputs = validation[1]
